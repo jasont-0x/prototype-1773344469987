@@ -1,0 +1,42 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "How old is your child?" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukBackLink({ text: "Back", href: "javascript:history.back()" }) }}
+
+    {% if errors and errors["child-age"] %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [{ text: errors["child-age"], href: "#child-age" }]
+    }) }}
+    {% endif %}
+
+    <form method="post" novalidate>
+    {{ govukRadios({
+      name: "child-age",
+      fieldset: {
+        legend: {
+          text: "How old is your child?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      errorMessage: errors["child-age"] if errors else null,
+      value: data["child-age"],
+      items: [
+        { value: "under-4-years-old", text: "Under 4 years old" },
+        { value: "4-to-7-years-old", text: "4 to 7 years old" },
+        { value: "8-to-16-years-old", text: "8 to 16 years old" },
+        { value: "over-16-years-old", text: "Over 16 years old" }
+      ]
+    }) }}
+      {{ govukButton({ text: "Continue" }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
