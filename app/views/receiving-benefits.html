@@ -1,0 +1,41 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Do you receive any of these benefits?" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukBackLink({ text: "Back", href: "javascript:history.back()" }) }}
+
+    {% if errors and errors["receiving-benefits"] %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [{ text: errors["receiving-benefits"], href: "#receiving-benefits" }]
+    }) }}
+    {% endif %}
+
+    <form method="post" novalidate>
+    {{ govukRadios({
+      name: "receiving-benefits",
+      fieldset: {
+        legend: {
+          text: "Do you receive any of these benefits?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      hint: { text: "Income Support, income-based Jobseeker's Allowance, income-related Employment and Support Allowance, support under Part VI of the Immigration and Asylum Act 1999, the guaranteed element of Pension Credit, Child Tax Credit, Working Tax Credit or Universal Credit" },
+      errorMessage: errors["receiving-benefits"] if errors else null,
+      value: data["receiving-benefits"],
+      items: [
+        { value: "yes", text: "Yes" },
+        { value: "no", text: "No" }
+      ]
+    }) }}
+      {{ govukButton({ text: "Continue" }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
