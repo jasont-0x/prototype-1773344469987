@@ -1,0 +1,79 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Check your answers before sending your application" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukBackLink({ text: "Back", href: "javascript:history.back()" }) }}
+
+    <h1 class="govuk-heading-xl">Check your answers before sending your application</h1>
+
+    {{ govukSummaryList({
+      rows: [
+      {
+        key: { text: "How old is your child?" },
+        value: { text: data["child-age"] if data["child-age"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/child-age",
+            text: "Change",
+            visuallyHiddenText: "how old is your child?"
+          }]
+        }
+      },
+      {
+        key: { text: "Do you receive any of these benefits?" },
+        value: { text: data["receiving-benefits"] if data["receiving-benefits"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/receiving-benefits",
+            text: "Change",
+            visuallyHiddenText: "do you receive any of these benefits?"
+          }]
+        }
+      },
+      {
+        key: { text: "What is your National Insurance number?" },
+        value: { text: data["national-insurance-number"] if data["national-insurance-number"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/national-insurance-number",
+            text: "Change",
+            visuallyHiddenText: "what is your national insurance number?"
+          }]
+        }
+      },
+      {
+        key: { text: "What is your child's full name?" },
+        value: { text: data["child-name"] if data["child-name"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/child-name",
+            text: "Change",
+            visuallyHiddenText: "what is your child's full name?"
+          }]
+        }
+      },
+      {
+        key: { text: "What is the name of your child's school?" },
+        value: { text: data["school-name"] if data["school-name"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/school-name",
+            text: "Change",
+            visuallyHiddenText: "what is the name of your child's school?"
+          }]
+        }
+      }
+      ]
+    }) }}
+
+    <form method="post" novalidate>
+      {{ govukButton({ text: "Confirm and send" }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
